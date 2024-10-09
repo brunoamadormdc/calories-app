@@ -68,16 +68,17 @@
                 <div class="grid grid-cols-3 gap-3 my-7">
                     <div class="column p-4">
                         <div class="my-4">Gramas de Gordura - {{ grams.fatGrams }} por kg corporal</div>
-                        <Slider v-model="grams.fatGrams" :step="0.01" :min="0.1" :max="10" class="w-full" />
+                        <Slider v-model="grams.fatGrams" :step="0.01" :min="0.1" :max="3" class="w-full" />
                     </div>
                     <div class="column p-4">
                         <div class="my-4">Gramas de Proteínas - {{ grams.proteinGrams }} por kg corporal</div>
-                        <Slider v-model="grams.proteinGrams" :step="0.01" :min="0.1" :max="10" class="w-full" />
+                        <Slider v-model="grams.proteinGrams" :step="0.01" :min="0.1" :max="5" class="w-full" />
                     </div>
                     <div class="column p-4">
                         <div class="my-4">Gramas de Carboidratos - {{ grams.carbGrams }} por kg corporal</div>
-                        <Slider v-model="grams.carbGrams" :step="0.01" :min="0.1" :max="10" class="w-full" />
+                        <Slider v-model="grams.carbGrams" :step="0.01" :min="0.1" :max="9" class="w-full" />
                     </div>
+
                 </div>
             </div>
             <div class="container mx-auto --tdeeContainer">
