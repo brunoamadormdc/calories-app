@@ -83,20 +83,20 @@
             </div>
             <div class="container mx-auto --tdeeContainer">
                 <div class="grid grid-cols-4 gap-4 my-7">
-                    <div class="column p-4 --bxCalories">
-                        <div class="my-4">Carboidratos</div>
+                    <div class="column  --bxCalories">
+                        <div>Carboidratos</div>
                         {{ carbGrams }}
                     </div>
-                    <div class="column p-4 --bxCalories">
-                        <div class="my-4">Gordura</div>
+                    <div class="column  --bxCalories">
+                        <div>Gordura</div>
                         {{ fatGrams }}
                     </div>
-                    <div class="column p-4 --bxCalories">
-                        <div class="my-4">Proteínas</div>
+                    <div class="column  --bxCalories">
+                        <div>Proteínas</div>
                         {{ proteinGrams }}
                     </div>
-                    <div class="column p-4 --bxCalories">
-                        <div class="my-4">Calorias</div>
+                    <div class="column  --bxCalories">
+                        <div>Calorias</div>
                         {{ caloriesFromGrams }}
                     </div>
                 </div>
@@ -329,8 +329,9 @@ export default {
             justify-content: center;
             border-radius: 5px;
             cursor: pointer;
-
+            padding: 20px;
             font-weight: bold;
+            background-color: #34d399;
 
             border: 1px solid #fff;
         }
