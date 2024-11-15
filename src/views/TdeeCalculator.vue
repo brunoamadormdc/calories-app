@@ -41,7 +41,7 @@
             <div class="md:columns-1 max-[450px]:columns-1 my-7">
                 <div class="column">
                     <div class="my-4">{{ activityLevel }}</div>
-                    <Slider v-model="activityLevelSlider" :step="0.01" :min="1.3" :max="2" class="w-full" />
+                    <Slider v-model="activityLevelSlider" :step="0.1" :min="1.275" :max="1.876" class="w-full" />
                 </div>
             </div>
             <div class="md:columns-1 max-[450px]:columns-1 my-7">
@@ -178,6 +178,9 @@ export default {
             if (this.activityLevelSlider === 0) {
                 this.activityLevelSlider = 1.375;
             }
+            if (this.activityLevelSlider >= 1.875) {
+                this.activityLevelSlider = 1.91;
+            }
             let calories = this.calculateAllFOrmulas();
             this.myCalories['Perda de peso máxima'] = calories - 1000;
             this.myCalories['Perda de peso moderada'] = calories - 500;
@@ -191,7 +194,9 @@ export default {
         },
 
         calculateAllFOrmulas() {
-            if (this.bodyFat === 0) {
+            if (this.bodyFat === 0
+                || this.bodyFat === null
+            ) {
                 return Math.round((this.calculateTDEEWithHarrisBenedict() + this.calculateTDEEWithMifflinStJeor()) / 2);
             }
             return Math.round((this.calculateTDEEWithKatchMcArdle() + this.calculateTDEEWithCunningham() + this.calculateTDEEWithHarrisBenedict() + this.calculateTDEEWithMifflinStJeor()) / 4);
@@ -216,20 +221,23 @@ export default {
             if (val < 1.375) {
                 return 'Sedentário (não faz exercícios)';
             }
-            if (val < 1.55 && val >= 1.375) {
-                return 'Treina um pouco (1 a 2 vezes na semana)';
+            if (val < 1.475 && val >= 1.375) {
+                return 'Treina 1x na semana';
             }
-            if (val < 1.6 && val >= 1.55) {
-                return 'Treina moderadamente (3 a 5 vezes na semana)';
+            if (val < 1.575 && val >= 1.475) {
+                return 'Treina de 2 a 3x na semana';
             }
-            if (val < 1.725 && val >= 1.6) {
-                return 'Treina bastante (4 a 5 vezes na semana)';
+            if (val < 1.675 && val >= 1.575) {
+                return 'Treina de 4 a 5x na semana';
             }
-            if (val < 1.9 && val >= 1.725) {
-                return 'Treina praticamente todo dia (6 a 7 vezes na semana)';
+            if (val < 1.775 && val >= 1.675) {
+                return 'Treina 5 a 6x na semana';
             }
-            if (val >= 1.9) {
-                return 'Atleta (treina mais de 1x ao dia, todos os dias)';
+            if (val < 1.875 && val >= 1.775) {
+                return 'Treina 7x na semana';
+            }
+            if (val >= 1.875) {
+                return 'Treina 7x na semana mais de 1x ao dia';
             }
             return 'Sedentário (não faz exercícios)';
         },
