@@ -2,106 +2,107 @@
     <div class="__TdeeCalculator">
         <div class="container mx-auto --tdeeContainer">
             <div class="column-1">
-                <h1 class="text-2xl font-bold">Calculadora de Consumo Calórico</h1>
+                <h1 class="text-2xl font-bold p-5">Calculadora de Consumo Calórico</h1>
             </div>
-            <div class="columns-5  my-7">
-                <div class="column">
+            <div class="lg:columns-5 md:columns-1  lg:my-7">
+                <div class="column ">
                     <FloatLabel variant="on">
                         <InputNumber inputId="Altura" v-model="height" class="w-full" />
                         <label for="Altura">Altura em cm</label>
                     </FloatLabel>
                 </div>
-                <div class="column">
+                <div class="column sm:my-3.5 md:my-3.5">
                     <FloatLabel variant="on">
                         <InputNumber inputId="Peso" v-model="weight" @update:modelValue="calculateMacros()"
                             class="w-full" />
                         <label for="Peso">Peso em kg</label>
                     </FloatLabel>
                 </div>
-                <div class="column">
+                <div class="column sm:my-3.5 md:my-3.5">
                     <FloatLabel variant="on">
                         <InputNumber inputId="Idade" v-model="age" class="w-full" />
                         <label for="Idade">Idade</label>
                     </FloatLabel>
                 </div>
-                <div class="column">
+                <div class="column sm:my-3.5 md:my-3.5">
                     <FloatLabel variant="on">
                         <InputNumber inputId="gordura" v-model="bodyFatCalc"
                             @update:modelValue="calculateBodyFat($event)" class="w-full" />
                         <label for="gordura">% gordura corporal (opcional)</label>
                     </FloatLabel>
                 </div>
-                <div class="column">
+                <div class="column sm:my-3.5 md:my-3.5">
 
                     <SelectButton v-model="gender" :options="genderOptions" aria-labelledby="basic" />
 
 
                 </div>
             </div>
-            <div class="columns-1 my-7">
+            <div class="md:columns-1 my-7">
                 <div class="column">
                     <div class="my-4">{{ activityLevel }}</div>
                     <Slider v-model="activityLevelSlider" :step="0.01" :min="1.3" :max="2" class="w-full" />
                 </div>
             </div>
-            <div class="columns-1 my-7">
+            <div class="md:columns-1 my-7">
                 <div class="column">
                     <Button label="Calcular" @click="makeTheMagicHappen()" />
                 </div>
             </div>
         </div>
-        <template v-if="calculated">
-            <div class="container mx-auto --tdeeContainer">
-                <div class="columns-7 my-7">
-                    <div class="column" v-for="(cal, key) in myCalories" :key="key">
-                        <div class="--boxCalories border-stone-50 border-solid border p-2"
-                            :class="`${objSelected == key ? ' text-green-400' : ''}`" @click="objSelected = key">
-                            <label>{{ key }}</label>
-                            <div>{{
-                                cal
-                                }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mx-auto --tdeeContainer">
-                <div class="grid grid-cols-3 gap-3 my-7">
-                    <div class="column p-4">
-                        <div class="my-4">Gramas de Gordura - {{ grams.fatGrams }} por kg corporal</div>
-                        <Slider v-model="grams.fatGrams" :step="0.01" :min="0.1" :max="3" class="w-full" />
-                    </div>
-                    <div class="column p-4">
-                        <div class="my-4">Gramas de Proteínas - {{ grams.proteinGrams }} por kg corporal</div>
-                        <Slider v-model="grams.proteinGrams" :step="0.01" :min="0.1" :max="5" class="w-full" />
-                    </div>
-                    <div class="column p-4">
-                        <div class="my-4">Gramas de Carboidratos - {{ grams.carbGrams }} por kg corporal</div>
-                        <Slider v-model="grams.carbGrams" :step="0.01" :min="0.1" :max="9" class="w-full" />
-                    </div>
 
-                </div>
-            </div>
-            <div class="container mx-auto --tdeeContainer">
-                <div class="grid grid-cols-4 gap-4 my-7">
-                    <div class="column  --bxCalories">
-                        <div>Carboidratos</div>
-                        {{ carbGrams }}
-                    </div>
-                    <div class="column  --bxCalories">
-                        <div>Gordura</div>
-                        {{ fatGrams }}
-                    </div>
-                    <div class="column  --bxCalories">
-                        <div>Proteínas</div>
-                        {{ proteinGrams }}
-                    </div>
-                    <div class="column  --bxCalories">
-                        <div>Calorias</div>
-                        {{ caloriesFromGrams }}
+        <div class="container mx-auto --tdeeContainer">
+            <div class="sm:columns-1 md:columns-3 lg:columns-7">
+                <div class="column " v-for="(cal, key) in myCalories" :key="key">
+                    <div class="--boxCalories border-stone-50 border-solid border p-2"
+                        :class="`${objSelected == key ? ' text-green-400 --selectedOption' : ''}`"
+                        @click="objSelected = key">
+                        <label>{{ key }}</label>
+                        <div>{{
+                            cal
+                        }}</div>
                     </div>
                 </div>
             </div>
-        </template>
+        </div>
+        <div class="container mx-auto --tdeeContainer">
+            <div class="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-1  gap-3 my-7">
+                <div class="column  p-4">
+                    <div class="my-4">Gramas de Gordura - {{ grams.fatGrams }} por kg corporal</div>
+                    <Slider v-model="grams.fatGrams" :step="0.01" :min="0.1" :max="3" class="w-full" />
+                </div>
+                <div class="column  p-4">
+                    <div class="my-4">Gramas de Proteínas - {{ grams.proteinGrams }} por kg corporal</div>
+                    <Slider v-model="grams.proteinGrams" :step="0.01" :min="0.1" :max="5" class="w-full" />
+                </div>
+                <div class="column p-4">
+                    <div class="my-4">Gramas de Carboidratos - {{ grams.carbGrams }} por kg corporal</div>
+                    <Slider v-model="grams.carbGrams" :step="0.01" :min="0.1" :max="9" class="w-full" />
+                </div>
+
+            </div>
+        </div>
+        <div class="container mx-auto --tdeeContainer">
+            <div class="grid grid-cols-4 gap-4 my-7">
+                <div class="column  --bxCalories">
+                    <div>Carboidratos</div>
+                    {{ carbGrams }}
+                </div>
+                <div class="column  --bxCalories">
+                    <div>Gordura</div>
+                    {{ fatGrams }}
+                </div>
+                <div class="column  --bxCalories">
+                    <div>Proteínas</div>
+                    {{ proteinGrams }}
+                </div>
+                <div class="column  --bxCalories">
+                    <div>Calorias</div>
+                    {{ caloriesFromGrams }}
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
@@ -298,7 +299,6 @@ export default {
             this.proteinGrams = Math.round(caloriesProteinFromWeight / caloriesFromGrams.protein);
             this.fatGrams = Math.round(caloriesFatFromWeight / caloriesFromGrams.fat);
             this.setObjSelected();
-            console.log(this.caloriesFromGrams)
         }
     }
 }
@@ -320,6 +320,11 @@ export default {
                 font-weight: bold;
                 font-size: 12px;
             }
+        }
+
+        .--selectedOption {
+            background-color: #34d399;
+            color: #fff;
         }
 
         .--bxCalories {
